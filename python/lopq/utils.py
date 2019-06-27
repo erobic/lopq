@@ -17,7 +17,7 @@ def iterate_splits(x, splits):
         subvector, split index pairs
     """
     split_size = len(x) / splits
-    for split in xrange(splits):
+    for split in range(splits):
         start = split * split_size
         yield x[start:start + split_size], split
 
@@ -74,8 +74,8 @@ def load_xvecs(filename, base_type='f', max_num=None):
 
     f.seek(0)
     A = np.zeros((max_num, D), dtype=py_type)
-    for i in xrange(max_num):
-        for j in xrange(D + 1):
+    for i in range(max_num):
+        for j in range(D + 1):
             if j == 0:
                 np.uint32(struct.unpack(format_code, f.read(4)))
             else:

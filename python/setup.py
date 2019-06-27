@@ -4,7 +4,7 @@
 # Licensed under the terms of the Apache License, Version 2.0. See the LICENSE file associated with the project for terms.
 import os
 import json
-from setuptools import setup
+from setuptools import setup, find_packages
 
 
 # Package Metadata filename
@@ -60,7 +60,7 @@ setup_arguments = {
     'url': 'http://github.com/yahoo/lopq',
     'license': 'Apache-2.0',
     'keywords': ['lopq', 'locally optimized product quantization', 'product quantization', 'compression', 'ann', 'approximate nearest neighbor', 'similarity search'],
-    'packages': ['lopq'],
+    'packages': find_packages(),
     'long_description': LONG_DESCRIPTION,
     'description': 'Python code for training and deploying Locally Optimized Product Quantization (LOPQ) for approximate nearest neighbor search of high dimensional data.',
     'classifiers': [

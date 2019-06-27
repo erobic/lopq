@@ -56,7 +56,7 @@ def multisequence(x, centroids):
     # Initialize priority queue
     h = []
     traversed = set()
-    start_inds = tuple(0 for _ in xrange(splits))
+    start_inds = tuple(0 for _ in range(splits))
     start_dist = dist_for_cell(cell_for_inds(start_inds))
     heapq.heappush(h, (start_dist, start_inds))
 
