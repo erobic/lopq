@@ -37,8 +37,9 @@ def eigenvalue_allocation(num_buckets, eigenvalues):
     :returns ndarray:
         a vector of indices by which to permute the eigenvectors
     """
+    num_buckets = int(num_buckets)
     D = len(eigenvalues)
-    dims_per_bucket = D / num_buckets
+    dims_per_bucket = int(D / num_buckets)
     eigenvalue_product = np.zeros(num_buckets, dtype=float)
     bucket_size = np.zeros(num_buckets, dtype=int)
     permutation = np.zeros((num_buckets, dims_per_bucket), dtype=int)
