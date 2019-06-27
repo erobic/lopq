@@ -7,12 +7,12 @@ import os
 sys.path.append(os.path.abspath('../python'))
 
 import numpy as np
+import functools
 from sklearn.cross_validation import train_test_split
 
 from lopq import LOPQModel, LOPQSearcher
 from lopq.eval import compute_all_neighbors, get_recall
 from lopq.model import eigenvalue_allocation
-
 
 def load_oxford_data():
     from lopq.utils import load_xvecs
@@ -35,7 +35,7 @@ def pca(data):
     mu = data.sum(axis=0) / float(count)
 
     # Compute covariance
-    summed_covar = reduce(lambda acc, x: acc + np.outer(x, x), data, np.zeros((D, D)))
+    summed_covar = functools.reduce(lambda acc, x: acc + np.outer(x, x), data, np.zeros((D, D)))
     A = summed_covar / (count - 1) - np.outer(mu, mu)
 
     # Compute eigen decomposition

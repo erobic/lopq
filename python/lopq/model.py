@@ -6,7 +6,7 @@ import logging
 import sys
 from collections import namedtuple
 from .utils import iterate_splits, predict_cluster
-
+import functools
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.WARNING)
 logger.addHandler(logging.StreamHandler(sys.stdout))
@@ -443,7 +443,8 @@ class LOPQModel(object):
             self.M = self.num_fine_splits * self.num_coarse_splits
             self.subquantizer_clusters = self.subquantizers[0][0].shape[0]
         else:
-            self.num_fine_splits = M / 2
+            self.num_fine_splits = int(M / 2)
+            assert M/2 - self.num_fine_splits == 0
             self.M = M
             self.subquantizer_clusters = subquantizer_clusters
 
@@ -616,7 +617,7 @@ class LOPQModel(object):
             C, R, mu, subC = self.get_split_parameters(split)
 
             # Concatenate the cluster centroids for this split of fine codes
-            sx = reduce(lambda acc, c: np.concatenate((acc, subC[c[0]][c[1]])), enumerate(fc), [])
+            sx = functools.reduce(lambda acc, c: np.concatenate((acc, subC[c[0]][c[1]])), enumerate(fc), [])
 
             # Project residual out of local space
             cluster = coarse_codes[split]

@@ -3,7 +3,7 @@
 import numpy as np
 import multiprocessing
 from itertools import chain
-
+import functools
 
 def iterate_splits(x, splits):
     """
@@ -16,6 +16,7 @@ def iterate_splits(x, splits):
     :returns (np.array, int):
         subvector, split index pairs
     """
+    splits = int(splits)
     split_size = int(len(x) / splits)
     assert len(x)/splits - split_size == 0
     for split in range(splits):
@@ -155,7 +156,7 @@ def get_chunk_ranges(N, num_procs):
     per_thread = N / num_procs
     allocation = [per_thread] * num_procs
     allocation[0] += N - num_procs * per_thread
-    data_ranges = [0] + reduce(lambda acc, num: acc + [num + (acc[-1] if len(acc) else 0)], allocation, [])
+    data_ranges = [0] + functools.reduce(lambda acc, num: acc + [num + (acc[-1] if len(acc) else 0)], allocation, [])
     data_ranges = [(data_ranges[i], data_ranges[i + 1]) for i in range(len(data_ranges) - 1)]
     return data_ranges
 
